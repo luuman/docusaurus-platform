@@ -3,7 +3,6 @@ node_modules
 .pnp
 .pnp.js
 .pnp.loader.mjs
-pnpm-lock.yaml
 
 # Build outputs
 build
