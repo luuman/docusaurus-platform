@@ -4,17 +4,17 @@ const { execSync } = require('child_process');
 
 const PROJECTS = {
   electron: {
-    repo: 'https://github.com/your-org/electron-docs.git',
+    repo: 'https://github.com/brainboard/docs.git',
     branch: 'main',
     docsPath: 'docs',
   },
   tauri: {
-    repo: 'https://github.com/your-org/tauri-docs.git',
+    repo: 'https://github.com/brainboard/docs.git',
     branch: 'main',
     docsPath: 'docs',
   },
   rust: {
-    repo: 'https://github.com/your-org/rust-docs.git',
+    repo: 'https://github.com/brainboard/docs.git',
     branch: 'main',
     docsPath: 'docs',
   }
