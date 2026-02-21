@@ -8,9 +8,15 @@ on:
   schedule:
     - cron: '0 3 * * *'
   
-  # 或者监听子项目仓库的webhook（需要配置）
+  # 监听子项目仓库的webhook
   repository_dispatch:
     types: [electron-updated, tauri-updated, rust-updated]
+
+# 添加权限配置
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   sync-and-deploy:
@@ -21,15 +27,24 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          # 如果需要获取所有标签和分支
+          # ref: ${{ github.event.client_payload.ref || github.ref }}
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8  # 或者你使用的 pnpm 版本
       
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
       
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm install --frozen-lockfile  # pnpm 对应 npm ci 的命令
+        # 或者如果不需要 lock 文件: pnpm install
       
       - name: Configure Git
         run: |
@@ -37,12 +52,17 @@ jobs:
           git config --global user.email 'actions@github.com'
       
       - name: Setup SSH key for private repos
+        if: ${{ secrets.SUBMODULE_SSH_KEY != '' }}
         uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SUBMODULE_SSH_KEY }}
       
       - name: Sync all docs
         run: pnpm run sync
+        env:
+          # 如果需要传递事件信息到同步脚本
+          GITHUB_EVENT_TYPE: ${{ github.event.action }}
+          GITHUB_EVENT_PAYLOAD: ${{ toJSON(github.event.client_payload) }}
       
       - name: Check for changes
         id: git-check
@@ -61,15 +81,20 @@ jobs:
         run: |
           git commit -m "docs: auto-sync from subprojects [skip ci]"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Build site
+        if: always()  # 即使没有文档更新也可以构建（比如主题更新）
         run: pnpm run build
       
       - name: Deploy to GitHub Pages
-        if: steps.git-check.outputs.hasChanges == 'true'
+        if: steps.git-check.outputs.hasChanges == 'true' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
           publish_branch: gh-pages
-          commit_message: "deploy: ${{ github.event.head_commit.message }}"
+          commit_message: "deploy: ${{ github.event.head_commit.message || 'auto-deploy' }}"
+          # 可选：自定义域名
+          # cname: docs.yourdomain.com
