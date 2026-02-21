@@ -30,28 +30,22 @@ jobs:
           node-version: '18'
           cache: 'pnpm'
       
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
       
-      - name: Configure Git
-        run: |
+      - run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'actions@github.com'
       
-      # 如果有 SSH key 就使用，没有就跳过
-      - name: Setup SSH key
-        if: ${{ secrets.SUBMODULE_SSH_KEY != '' }}
-        uses: webfactory/ssh-agent@v0.8.0
+      # 如果需要 SSH key，直接在这里使用，不需要条件
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SUBMODULE_SSH_KEY }}
       
-      - name: Sync docs
-        run: pnpm run sync
+      - run: pnpm run sync
         env:
           GITHUB_EVENT_TYPE: ${{ github.event.action }}
       
-      - name: Check for changes
-        id: git-check
+      - id: git-check
         run: |
           git add docs/
           if git diff --staged --quiet; then
@@ -60,17 +54,14 @@ jobs:
             echo "hasChanges=true" >> $GITHUB_OUTPUT
           fi
       
-      - name: Commit changes
-        if: steps.git-check.outputs.hasChanges == 'true'
+      - if: steps.git-check.outputs.hasChanges == 'true'
         run: |
           git commit -m "docs: auto-sync from subprojects [skip ci]"
           git push
       
-      - name: Build
-        run: pnpm run build
+      - run: pnpm run build
       
-      - name: Deploy
-        if: steps.git-check.outputs.hasChanges == 'true' && github.ref == 'refs/heads/main'
+      - if: steps.git-check.outputs.hasChanges == 'true' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
