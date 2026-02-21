@@ -1,0 +1,75 @@
+name: Deploy Documentation Platform
+
+on:
+  # 手动触发
+  workflow_dispatch:
+  
+  # 定时同步（每天凌晨3点）
+  schedule:
+    - cron: '0 3 * * *'
+  
+  # 或者监听子项目仓库的webhook（需要配置）
+  repository_dispatch:
+    types: [electron-updated, tauri-updated, rust-updated]
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout main site
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+      
+      - name: Setup SSH key for private repos
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SUBMODULE_SSH_KEY }}
+      
+      - name: Sync all docs
+        run: npm run sync
+      
+      - name: Check for changes
+        id: git-check
+        run: |
+          git add docs/
+          if git diff --staged --quiet; then
+            echo "hasChanges=false" >> $GITHUB_OUTPUT
+            echo "📝 没有文档更新"
+          else
+            echo "hasChanges=true" >> $GITHUB_OUTPUT
+            echo "📝 检测到文档更新"
+          fi
+      
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.hasChanges == 'true'
+        run: |
+          git commit -m "docs: auto-sync from subprojects [skip ci]"
+          git push
+      
+      - name: Build site
+        run: npm run build
+      
+      - name: Deploy to GitHub Pages
+        if: steps.git-check.outputs.hasChanges == 'true'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          publish_branch: gh-pages
+          commit_message: "deploy: ${{ github.event.head_commit.message }}"
