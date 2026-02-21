@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 3 * * *'
-  repository_dispatch:
-    types: [electron-updated, tauri-updated, rust-updated]
 
 permissions:
   contents: write
