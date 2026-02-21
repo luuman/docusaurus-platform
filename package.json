@@ -23,5 +23,18 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "fs-extra": "^11.2.0"
-  }
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "3.1.1",
+    "@docusaurus/types": "3.1.1"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "engines": {
+    "node": ">=18.0"
+  },
+  "license": "MIT",
+  "keywords": [
+    "docusaurus",
+    "platform"
+  ]
 }
