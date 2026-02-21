@@ -17,51 +17,60 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       
-      - uses: pnpm/action-setup@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: 8
       
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'pnpm'
       
-      - run: pnpm install --frozen-lockfile
+      # 修改这里：使用 --no-frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
       
-      - run: |
+      - name: Configure Git
+        run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'actions@github.com'
       
-      # 如果需要 SSH key，直接在这里使用，不需要条件
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SUBMODULE_SSH_KEY }}
-      
-      - run: pnpm run sync
+      - name: Sync all docs
+        run: pnpm run sync
         env:
           GITHUB_EVENT_TYPE: ${{ github.event.action }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      - id: git-check
+      - name: Check for changes
+        id: git-check
         run: |
           git add docs/
           if git diff --staged --quiet; then
             echo "hasChanges=false" >> $GITHUB_OUTPUT
+            echo "📝 没有文档更新"
           else
             echo "hasChanges=true" >> $GITHUB_OUTPUT
+            echo "📝 检测到文档更新"
           fi
       
-      - if: steps.git-check.outputs.hasChanges == 'true'
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.hasChanges == 'true'
         run: |
           git commit -m "docs: auto-sync from subprojects [skip ci]"
           git push
       
-      - run: pnpm run build
+      - name: Build site
+        run: pnpm run build
       
-      - if: steps.git-check.outputs.hasChanges == 'true' && github.ref == 'refs/heads/main'
+      - name: Deploy to GitHub Pages
+        if: steps.git-check.outputs.hasChanges == 'true' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
