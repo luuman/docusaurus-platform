@@ -1,0 +1,19 @@
+{
+  "id": "tauri/intro",
+  "title": "Tauri 入门",
+  "description": "这是 Tauri 文档的内容，来自独立的 Git 仓库。",
+  "source": "@site/docs/tauri/intro.md",
+  "sourceDirName": "tauri",
+  "slug": "/tauri/intro",
+  "permalink": "/tauri/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-org/docs-platform/edit/main/docs/tauri/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tauriSidebar"
+}

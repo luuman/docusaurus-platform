@@ -1,0 +1,24 @@
+:root {
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+}
+
+/* Electron 特定样式 */
+[data-theme='electron'] {
+  --ifm-color-primary: #2b5797;
+}
+
+/* Tauri 特定样式 */
+[data-theme='tauri'] {
+  --ifm-color-primary: #ffc131;
+}
+
+/* Rust 特定样式 */
+[data-theme='rust'] {
+  --ifm-color-primary: #dea584;
+}

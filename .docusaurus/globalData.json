@@ -1,0 +1,55 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/",
+          "mainDocId": "electron/intro",
+          "docs": [
+            {
+              "id": "electron/intro",
+              "path": "/electron/intro",
+              "sidebar": "electronSidebar"
+            },
+            {
+              "id": "rust/intro",
+              "path": "/rust/intro",
+              "sidebar": "rustSidebar"
+            },
+            {
+              "id": "tauri/intro",
+              "path": "/tauri/intro",
+              "sidebar": "tauriSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "electronSidebar": {
+              "link": {
+                "path": "/electron/intro",
+                "label": "electron/intro"
+              }
+            },
+            "tauriSidebar": {
+              "link": {
+                "path": "/tauri/intro",
+                "label": "tauri/intro"
+              }
+            },
+            "rustSidebar": {
+              "link": {
+                "path": "/rust/intro",
+                "label": "rust/intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

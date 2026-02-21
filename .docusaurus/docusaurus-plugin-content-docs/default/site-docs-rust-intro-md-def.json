@@ -1,0 +1,19 @@
+{
+  "id": "rust/intro",
+  "title": "Rust 入门",
+  "description": "这是 Rust 文档的内容，来自独立的 Git 仓库。",
+  "source": "@site/docs/rust/intro.md",
+  "sourceDirName": "rust",
+  "slug": "/rust/intro",
+  "permalink": "/rust/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-org/docs-platform/edit/main/docs/rust/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "rustSidebar"
+}

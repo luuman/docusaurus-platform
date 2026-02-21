@@ -1,0 +1,59 @@
+{
+  "pluginId": "default",
+  "version": "current",
+  "label": "Next",
+  "banner": null,
+  "badge": false,
+  "noIndex": false,
+  "className": "docs-version-current",
+  "isLast": true,
+  "docsSidebars": {
+    "electronSidebar": [
+      {
+        "type": "link",
+        "label": "Electron 入门",
+        "href": "/electron/intro",
+        "docId": "electron/intro",
+        "unlisted": false
+      }
+    ],
+    "tauriSidebar": [
+      {
+        "type": "link",
+        "label": "Tauri 入门",
+        "href": "/tauri/intro",
+        "docId": "tauri/intro",
+        "unlisted": false
+      }
+    ],
+    "rustSidebar": [
+      {
+        "type": "link",
+        "label": "Rust 入门",
+        "href": "/rust/intro",
+        "docId": "rust/intro",
+        "unlisted": false
+      }
+    ]
+  },
+  "docs": {
+    "electron/intro": {
+      "id": "electron/intro",
+      "title": "Electron 入门",
+      "description": "这是 Electron 文档的内容，来自独立的 Git 仓库。",
+      "sidebar": "electronSidebar"
+    },
+    "rust/intro": {
+      "id": "rust/intro",
+      "title": "Rust 入门",
+      "description": "这是 Rust 文档的内容，来自独立的 Git 仓库。",
+      "sidebar": "rustSidebar"
+    },
+    "tauri/intro": {
+      "id": "tauri/intro",
+      "title": "Tauri 入门",
+      "description": "这是 Tauri 文档的内容，来自独立的 Git 仓库。",
+      "sidebar": "tauriSidebar"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "electron/intro",
+  "title": "Electron 入门",
+  "description": "这是 Electron 文档的内容，来自独立的 Git 仓库。",
+  "source": "@site/docs/electron/intro.md",
+  "sourceDirName": "electron",
+  "slug": "/electron/intro",
+  "permalink": "/electron/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-org/docs-platform/edit/main/docs/electron/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "electronSidebar"
+}

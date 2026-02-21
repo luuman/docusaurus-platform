@@ -1,0 +1,128 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "loadedVersions": [
+        {
+          "versionName": "current",
+          "label": "Next",
+          "banner": null,
+          "badge": false,
+          "noIndex": false,
+          "className": "docs-version-current",
+          "path": "/",
+          "tagsPath": "/tags",
+          "editUrl": "https://github.com/your-org/docs-platform/edit/main/docs",
+          "editUrlLocalized": "https://github.com/your-org/docs-platform/edit/main/i18n/zh-CN/docusaurus-plugin-content-docs/current",
+          "isLast": true,
+          "routePriority": -1,
+          "sidebarFilePath": "/Users/moltbot/Code/Docusaurus/docusaurus-platform/sidebars.js",
+          "contentPath": "/Users/moltbot/Code/Docusaurus/docusaurus-platform/docs",
+          "contentPathLocalized": "/Users/moltbot/Code/Docusaurus/docusaurus-platform/i18n/zh-CN/docusaurus-plugin-content-docs/current",
+          "docs": [
+            {
+              "id": "electron/intro",
+              "title": "Electron 入门",
+              "description": "这是 Electron 文档的内容，来自独立的 Git 仓库。",
+              "source": "@site/docs/electron/intro.md",
+              "sourceDirName": "electron",
+              "slug": "/electron/intro",
+              "permalink": "/electron/intro",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/your-org/docs-platform/edit/main/docs/electron/intro.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "electronSidebar"
+            },
+            {
+              "id": "rust/intro",
+              "title": "Rust 入门",
+              "description": "这是 Rust 文档的内容，来自独立的 Git 仓库。",
+              "source": "@site/docs/rust/intro.md",
+              "sourceDirName": "rust",
+              "slug": "/rust/intro",
+              "permalink": "/rust/intro",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/your-org/docs-platform/edit/main/docs/rust/intro.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "rustSidebar"
+            },
+            {
+              "id": "tauri/intro",
+              "title": "Tauri 入门",
+              "description": "这是 Tauri 文档的内容，来自独立的 Git 仓库。",
+              "source": "@site/docs/tauri/intro.md",
+              "sourceDirName": "tauri",
+              "slug": "/tauri/intro",
+              "permalink": "/tauri/intro",
+              "draft": false,
+              "unlisted": false,
+              "editUrl": "https://github.com/your-org/docs-platform/edit/main/docs/tauri/intro.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tauriSidebar"
+            }
+          ],
+          "drafts": [],
+          "sidebars": {
+            "electronSidebar": [
+              {
+                "type": "doc",
+                "id": "electron/intro"
+              }
+            ],
+            "tauriSidebar": [
+              {
+                "type": "doc",
+                "id": "tauri/intro"
+              }
+            ],
+            "rustSidebar": [
+              {
+                "type": "doc",
+                "id": "rust/intro"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "docusaurus-plugin-content-blog": {
+    "default": {
+      "blogSidebarTitle": "Recent posts",
+      "blogPosts": [],
+      "blogListPaginated": [],
+      "blogTags": {},
+      "blogTagsListPath": "/blog/tags",
+      "blogTagsPaginated": []
+    }
+  },
+  "docusaurus-plugin-content-pages": {
+    "default": [
+      {
+        "type": "jsx",
+        "permalink": "/",
+        "source": "@site/src/pages/index.js"
+      }
+    ]
+  },
+  "docusaurus-plugin-debug": {},
+  "docusaurus-theme-classic": {},
+  "docusaurus-bootstrap-plugin": {},
+  "docusaurus-mdx-fallback-plugin": {}
+}
